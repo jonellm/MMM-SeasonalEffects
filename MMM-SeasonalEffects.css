@@ -11,15 +11,18 @@
 
 .ghost {
     position: absolute;
-    background: url('assets/images/ghost.png') no-repeat center;
+    /* background: url('assets/images/ghost.png') no-repeat center; */
+	/* Bat adddition */
+	/* TODO, make variables for different options like .ghost above*/
+	background: url('assets/images/cute-bat-3.png') no-repeat center;
     background-size: contain;
     animation: floatIntoView linear infinite;
     opacity: 0.8;
 }
 
 @keyframes floatIntoView {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(var(--translateX), var(--translateY), 0); }
+    0% { transform: translate3d(0, 0, 0) rotate(var(--rotation, 0deg)); }
+    100% { transform: translate3d(var(--translateX), var(--translateY), 0) rotate(var(--rotation, 0deg)); }
 }
 
 .static-gif {

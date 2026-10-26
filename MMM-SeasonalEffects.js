@@ -1,4 +1,4 @@
-Module.register("MMM-Halloween", {
+Module.register("MMM-SeasonalEffects", {
     defaults: {
         updateInterval: 1000 * 30, // Update every 30 seconds
         numberOfGhosts: 10, // Number of ghosts to display
@@ -9,11 +9,16 @@ Module.register("MMM-Halloween", {
         gifPosition: "top-right", // Options: "top-left", "top-right", "bottom-left", "bottom-right", "center"
         gifSize: 100, // Default size of the static GIF
         minSpeed: 15, // Minimum duration of the ghost animation in seconds
-        maxSpeed: 25  // Maximum duration of the ghost animation in seconds
+        maxSpeed: 25,  // Maximum duration of the ghost animation in seconds
+
+	minRotation: -30,    // Minimum random initial tilt (degrees)
+	maxRotation: 30,     // Maximum random initial tilt (degrees)
+	imageOffset: 0,     // Static offset correction for your asset's default angle (degrees)
+
     },
 
     getStyles: function() {
-        return ["MMM-Halloween.css"];
+        return ["MMM-SeasonalEffects.css"];
     },
 
     start: function() {
@@ -71,6 +76,13 @@ Module.register("MMM-Halloween", {
 
             ghost.style.setProperty('--translateX', `${translateX}vw`);
             ghost.style.setProperty('--translateY', `${translateY}vh`);
+
+	    // Calculate random rotation within your config range + your static offset
+            const randomRotation = Math.random() * (this.config.maxRotation - this.config.minRotation) + this.config.minRotation;
+            const totalRotation = randomRotation + this.config.imageOffset;
+		
+	    // Pass the rotation as a CSS variable instead of overwriting transform
+            ghost.style.setProperty('--rotation', `${totalRotation}deg`);
 
             // Calculate duration based on minSpeed and maxSpeed
             const duration = Math.random() * (this.config.maxSpeed - this.config.minSpeed) + this.config.minSpeed;
