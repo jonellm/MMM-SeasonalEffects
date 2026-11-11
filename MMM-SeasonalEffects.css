@@ -7,6 +7,7 @@
     pointer-events: none;
     overflow: hidden;
     z-index: 10;
+	animation: wrapperFadeIn 1.5s ease-in-out; /* Fades a new batch in at the beginning of the update interval */
 }
 
 .particle {
@@ -77,6 +78,15 @@
     100% { 
         transform: translate3d(var(--translateX), var(--translateY), 0) rotate(calc(var(--rotation) + 10deg)); 
     }
+}
+
+@keyframes wrapperFadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .static-gif {
